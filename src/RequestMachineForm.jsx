@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import useScrollEffect from "./useScrollEffect";
 import FloatingInput from './floatingInput';
+import { supabase } from './supabaseClient';
 
 function RequestMachineForm() {
   const [companyName, setCompanyName] = useState('');
@@ -11,17 +12,35 @@ function RequestMachineForm() {
   const [reason, setReason] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [errorMsg, setErrorMsg] = useState('');
   const [ref, visible] = useScrollEffect();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMsg('');
 
-    // Simulate a network request — replace with your real API call
-    setTimeout(() => {
-      console.log({ companyName, name, email, phone, reason, message });
-      setLoading(false);
+    const { error } = await supabase
+      .from('leads')
+      .insert([
+        {
+          company_name: companyName,
+          name: name,
+          email: email,
+          phone: phone,
+          reason: reason,
+          message: message,
+        },
+      ]);
+
+    setLoading(false);
+
+    if (error) {
+      console.error('Error inserting lead:', error);
+      setErrorMsg('Failed to submit request. Please try again.');
+      return;
+    }
+      
       setSubmitted(true);
       setCompanyName('');
       setName('');
@@ -29,7 +48,6 @@ function RequestMachineForm() {
       setPhone('');
       setReason('');
       setMessage('');
-    }, 1000);
   };
 
   // Shared input classes
@@ -168,6 +186,10 @@ function RequestMachineForm() {
               onChange={(e) => setMessage(e.target.value)}
             />
           </div>
+
+          {/* Error */}
+          {errorMsg && <p className="text-red-500 text-sm text-center mt-2">{errorMsg}</p>}
+
 
           {/* Submit */}
           <button
