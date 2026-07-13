@@ -11,7 +11,7 @@ function Hero() {
             the Orlando Area</h2>
             <h3 className='relative z-10'>Bring your business to the next level <br />
             with our modern vending machines.</h3>
-            <button className="relative z-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><a href="#form">Request a Machine </a></button>
+            <button className="relative z-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"><a href="#form">Request a Machine </a></button>
             </div>
         </section>
         </>

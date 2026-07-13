@@ -28,11 +28,11 @@ function Footer() {
         {/* Payment Icons */}
         <div className="flex flex-wrap items-center justify-center md:justify-start gap-8 text-3xl max-w-6xl mx-auto px-6 pb-4">
           <span className="text-xs text-gray-500 uppercase tracking-widest">We Accept:</span>
-          <FaApplePay className="h-8 text-white hover:scale-110 transition cursor-pointer" />
-          <FaGooglePay className="h-8 text-white hover:scale-110 transition cursor-pointer" />
-          <FaCcVisa className="h-8 text-white hover:scale-110 transition cursor-pointer" />
-          <FaCcMastercard className="h-8 text-white hover:scale-110 transition cursor-pointer" />
-          <FaCcAmex className="h-8 text-white hover:scale-110 transition cursor-pointer" />
+          <FaApplePay className="h-8 text-white hover:scale-110 transition" />
+          <FaGooglePay className="h-8 text-white hover:scale-110 transition" />
+          <FaCcVisa className="h-8 text-white hover:scale-110 transition" />
+          <FaCcMastercard className="h-8 text-white hover:scale-110 transition" />
+          <FaCcAmex className="h-8 text-white hover:scale-110 transition" />
         </div>
 
         <div className='text-center text-gray-400 text-sm border-t border-gray-700 py-4'>
