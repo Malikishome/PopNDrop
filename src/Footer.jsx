@@ -15,9 +15,9 @@ function Footer() {
           <div className='md:text-right'>
             <h3 className='font-bold text-sm'>Contact Us</h3>
 
-            <a className='hover:underline text-white transition text-sm'>
+            <p className='hover:underline text-white transition text-sm'>
               Email: <a href="mailto:Contact@Pop&DropVending.com">Contact@Pop&DropVending.com</a>
-            </a>
+            </p>
 
             <p className='hover:underline text-white transition text-sm'>
               Phone: <a href="tel:4075555555">(407) 555-5555</a>
@@ -30,9 +30,9 @@ function Footer() {
           <span className="text-xs text-gray-500 uppercase tracking-widest">We Accept:</span>
           <FaApplePay className="h-8 text-white hover:scale-110 transition cursor-pointer" />
           <FaGooglePay className="h-8 text-white hover:scale-110 transition cursor-pointer" />
-          <FaCcVisa className="h-8 text-blue-700 hover:scale-110 transition cursor-pointer" />
-          <FaCcMastercard className="h-8 text-red-500 hover:scale-110 transition cursor-pointer" />
-          <FaCcAmex className="h-8 text-blue-500 hover:scale-110 transition cursor-pointer" />
+          <FaCcVisa className="h-8 text-white hover:scale-110 transition cursor-pointer" />
+          <FaCcMastercard className="h-8 text-white hover:scale-110 transition cursor-pointer" />
+          <FaCcAmex className="h-8 text-white hover:scale-110 transition cursor-pointer" />
         </div>
 
         <div className='text-center text-gray-400 text-sm border-t border-gray-700 py-4'>
