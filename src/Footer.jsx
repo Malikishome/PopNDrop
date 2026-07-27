@@ -1,5 +1,10 @@
 import React from 'react'
-import { FaCcVisa, FaCcMastercard, FaCcAmex, FaApplePay, FaGooglePay } from "react-icons/fa"
+import VisaIcon from "./assets/visa.svg";
+import MastercardIcon from "./assets/mastercard-alt.svg";
+import AmexIcon from "./assets/american-express.svg";
+import ApplePayIcon from "./assets/apple-pay.svg";
+import GooglePayIcon from "./assets/google-pay.svg";
+
 
 function Footer() {
   return (
@@ -28,13 +33,13 @@ function Footer() {
         {/* Payment Icons */}
         <div className="flex flex-wrap items-center justify-center md:justify-start gap-8 text-3xl max-w-6xl mx-auto px-6 pb-4">
           <span className="text-xs text-gray-500 uppercase tracking-widest">We Accept:</span>
-          <FaApplePay className="h-8 text-white hover:scale-110 transition" />
-          <FaGooglePay className="h-8 text-white hover:scale-110 transition" />
-          <FaCcVisa className="h-8 text-white hover:scale-110 transition" />
-          <FaCcMastercard className="h-8 text-white hover:scale-110 transition" />
-          <FaCcAmex className="h-8 text-white hover:scale-110 transition" />
+          <img src={VisaIcon} alt="Visa" className="h-6 hover:scale-110 transition rounded-sm" />
+          <img src={MastercardIcon} alt="Mastercard" className="h-6  hover:scale-110 transition rounded-sm" />
+          <img src={AmexIcon} alt="American Express" className="h-6  hover:scale-110 transition rounded-sm" />
+          <img src={ApplePayIcon} alt="Apple Pay" className="h-6  hover:scale-110 transition rounded-sm" />
+          <img src={GooglePayIcon} alt="Google Pay" className="h-6  hover:scale-110 transition rounded-sm" />
         </div>
-
+ rounded-sm
         <div className='text-center text-gray-400 text-sm border-t border-gray-700 py-4'>
           © {new Date().getFullYear()} Pop & Drop Vending. All rights reserved
         </div>
