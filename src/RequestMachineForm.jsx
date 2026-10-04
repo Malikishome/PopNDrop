@@ -213,6 +213,7 @@ function RequestMachineForm() {
               value={message}
               placeholder="Tell us about your location, how many machines you need, etc."
               onChange={(e) => setMessage(e.target.value)}
+              required
             />
           </div>
 
