@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useScrollEffect from "./useScrollEffect";
-import FloatingInput from './floatingInput';
+import FloatingInput from './FloatingInput';
 import { supabase } from './supabaseClient';
 import emailjs from '@emailjs/browser';
 
