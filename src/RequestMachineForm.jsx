@@ -12,6 +12,7 @@ function RequestMachineForm() {
   const [message, setMessage] = useState('');
   const [reason, setReason] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [submittedName, setSubmittedName] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [ref, visible] = useScrollEffect();
@@ -69,6 +70,7 @@ function RequestMachineForm() {
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
       
+      setSubmittedName(name);
       setSubmitted(true);
       setCompanyName('');
       setName('');
@@ -95,7 +97,7 @@ function RequestMachineForm() {
           <div className="text-amber-400 text-5xl mb-4">✓</div>
           <h2 className="text-2xl font-bold text-gray-800 mb-2">Request Sent!</h2>
           <p className="text-gray-500 text-sm">
-            Thanks, <span className="font-semibold text-gray-700">{name.charAt(0).toUpperCase() + name.slice(1)}</span>! We'll be in
+            Thanks, <span className="font-semibold text-gray-700">{submittedName.charAt(0).toUpperCase() + submittedName.slice(1)}</span>! We'll be in
             touch with you shortly about your request.
           </p>
           <button
