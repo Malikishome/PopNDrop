@@ -26,3 +26,9 @@ dist-ssr
 
 .env
 .env.local
+
+# Claude Code
+.claude/
+CLAUDE.md
+AGENTS.md
+blueprint/
