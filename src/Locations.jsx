@@ -45,8 +45,8 @@ function Locations() {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {spots.map((spot) => (
-                        <div key={spot.id} className="card w-96 h-50 text-white bg-base-100 shadow flex justify-center items-center overflow-hidden transition transform hover:-translate-y-1 hover:shadow-xl hover:scale-105 hover:text-amber-400 duration-300 rounded-xl">
-                            <div className="h-48 relative">
+                        <div key={spot.id} className="card w-96 text-white bg-base-100 shadow overflow-hidden transition transform hover:-translate-y-1 hover:shadow-xl hover:scale-105 hover:text-amber-400 duration-300 rounded-xl">
+                            <div className="w-full h-48 relative">
                                 <img src={spot.image} className="w-full h-full object-cover" alt={spot.name} />
                                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center p-6">
                                     <h2 className="font-bold text-2xl">{spot.name}</h2>
