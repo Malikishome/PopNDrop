@@ -102,7 +102,7 @@ function RequestMachineForm() {
           </p>
           <button
             onClick={() => setSubmitted(false)}
-            className="mt-6 text-sm text-amber-500 hover:text-amber-400 underline transition "
+            className="mt-6 text-sm text-amber-500 hover:text-amber-400 underline transition cursor-pointer"
           >
             Submit another request
           </button>

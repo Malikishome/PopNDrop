@@ -1,6 +1,6 @@
 import React from "react";
 
-function FloatingInput({ label, type = "text", name, value, onChange }) {
+function FloatingInput({ label, type = "text", name, value, onChange, required }) {
     return (
         <div className="relative z-0 w-full">
             <input type={type}
@@ -8,6 +8,7 @@ function FloatingInput({ label, type = "text", name, value, onChange }) {
                 placeholder=" "
                 value={value}
                 onChange={onChange}
+                required={required}
                 className="peer w-full border border-gray-400 px-3 pt-6 pb-2 rounded-md outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10 transition-colors duration-200" />
 
                 <label 
