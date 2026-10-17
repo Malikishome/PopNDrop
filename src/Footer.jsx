@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import VisaIcon from "./assets/visa.svg";
 import MastercardIcon from "./assets/mastercard-alt.svg";
 import AmexIcon from "./assets/american-express.svg";
@@ -39,8 +40,12 @@ function Footer() {
           <img src={ApplePayIcon} alt="Apple Pay" className="h-6  hover:scale-110 transition rounded-sm" />
           <img src={GooglePayIcon} alt="Google Pay" className="h-6  hover:scale-110 transition rounded-sm" />
         </div>
-        <div className='text-center text-gray-400 text-sm border-t border-gray-700 py-4'>
-          © {new Date().getFullYear()} Pop & Drop Vending. All rights reserved
+        <div className='text-center text-gray-400 text-sm border-t border-gray-700 py-4 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4'>
+          <span>© {new Date().getFullYear()} Pop & Drop Vending. All rights reserved</span>
+          <span className='flex items-center gap-4'>
+            <Link to="/terms" className='hover:underline hover:text-white transition'>Terms of Service</Link>
+            <Link to="/privacy" className='hover:underline hover:text-white transition'>Privacy Policy</Link>
+          </span>
         </div>
 
       </footer>

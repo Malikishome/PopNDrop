@@ -1,22 +1,18 @@
-import Hero from './Hero.jsx';
-import About from './About.jsx';
-import WhyChooseUs from './WhyChooseUs.jsx';
-import RequestMachineForm from './RequestMachineForm.jsx';
-import Footer from './Footer.jsx';
-import NavBar from './NavBar.jsx';
-import Locations from './Locations.jsx';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Home from './Home.jsx';
+import Terms from './Terms.jsx';
+import Privacy from './Privacy.jsx';
 
 function App() {
   return (
-    <>
-    <NavBar />
-    <Hero />
-    <About />
-    <WhyChooseUs />
-    <Locations />
-    <RequestMachineForm />
-    <Footer />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
