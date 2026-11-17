@@ -164,10 +164,8 @@ function RequestMachineForm() {
             <FloatingInput
               label="Company Name"
               name="companyName"
-              className={inputClass}
               type="text"
               value={companyName}
-              placeholder="Your Company Name"
               required
               onChange={(e) => setCompanyName(e.target.value)}
             />
@@ -176,10 +174,8 @@ function RequestMachineForm() {
             <FloatingInput
               label="Your Name"
               name="name"
-              className={inputClass}
               type="text"
               value={name}
-              placeholder="Your Name"
               required
               onChange={(e) => setName(e.target.value)}
             />
@@ -190,10 +186,8 @@ function RequestMachineForm() {
               <FloatingInput
                 label="Email"
                 name="email"
-                className={inputClass}
                 type="email"
                 value={email}
-                placeholder="Your Email Address"
                 required
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -202,10 +196,8 @@ function RequestMachineForm() {
               <FloatingInput
                 label="Phone"
                 name="phone"
-                className={inputClass}
                 type="tel"
                 value={phone}
-                placeholder="Your Phone Number"
                 onChange={(e) => setPhone(formatPhoneNumber(e.target.value))}
                 required
 
