@@ -32,3 +32,6 @@ dist-ssr
 CLAUDE.md
 AGENTS.md
 blueprint/
+
+# Supabase CLI local state
+supabase/.temp

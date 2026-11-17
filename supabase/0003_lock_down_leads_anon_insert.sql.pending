@@ -1,0 +1,19 @@
+-- Run this ONLY after the submit-lead Edge Function is deployed and the
+-- frontend has been switched to call it (RequestMachineForm.jsx uses
+-- supabase.functions.invoke('submit-lead', ...) instead of a direct
+-- supabase.from('leads').insert(...)). Until then, this will break the
+-- live request form.
+--
+-- Today the anon key can insert directly into `leads` from any browser
+-- or script, with no rate limiting. Once the Edge Function (which uses
+-- the service_role key, bypassing RLS) is the only inserter, anon no
+-- longer needs - and should not have - direct insert access.
+--
+-- "Allow anon insert" below is a placeholder - this repo can't see your
+-- actual policy name. Check Supabase Dashboard -> Authentication ->
+-- Policies -> leads for the real name of the anon insert policy and
+-- substitute it before running this.
+drop policy if exists "Allow anon insert" on public.leads;
+
+-- Leaves `leads` with RLS enabled and no policies for anon/authenticated,
+-- so only service_role (the Edge Function) can read or write it.

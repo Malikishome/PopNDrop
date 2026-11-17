@@ -4,6 +4,9 @@ import FloatingInput from './FloatingInput';
 import { supabase } from './supabaseClient';
 import emailjs from '@emailjs/browser';
 
+const SUBMIT_COOLDOWN_MS = 60_000;
+const LAST_SUBMIT_KEY = 'popndrop_last_lead_submit';
+
 function RequestMachineForm() {
   const [companyName, setCompanyName] = useState('');
   const [name, setName] = useState('');
@@ -30,29 +33,48 @@ function RequestMachineForm() {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+
+    const lastSubmit = Number(localStorage.getItem(LAST_SUBMIT_KEY) || 0);
+    const msSinceLastSubmit = Date.now() - lastSubmit;
+    if (msSinceLastSubmit < SUBMIT_COOLDOWN_MS) {
+      const secondsLeft = Math.ceil((SUBMIT_COOLDOWN_MS - msSinceLastSubmit) / 1000);
+      setErrorMsg(`Please wait ${secondsLeft}s before submitting again.`);
+      return;
+    }
+
     setLoading(true);
     setErrorMsg('');
 
-    const { data, error } = await supabase
-      .from('leads')
-      .insert([
-        {
-          company_name: companyName,
-          name: name,
-          email: email,
-          phone: phone,
-          reason: reason,
-          message: message,
-        },
-      ]);
-
+    const { error } = await supabase.functions.invoke('submit-lead', {
+      body: {
+        company_name: companyName,
+        name: name,
+        email: email,
+        phone: phone,
+        reason: reason,
+        message: message,
+      },
+    });
 
     if (error) {
-      console.error('Error inserting lead:', error);
-      setErrorMsg('Failed to submit request. Please try again.');
+      console.error('Error submitting lead:', error);
+      let serverMessage = '';
+      try {
+        const body = await error.context?.json();
+        serverMessage = body?.error || '';
+      } catch {
+        // response body wasn't JSON (e.g. network failure) - fall through to generic message
+      }
+      setErrorMsg(
+        serverMessage === 'rate_limited'
+          ? 'Too many requests. Please try again in a few minutes.'
+          : 'Failed to submit request. Please try again.'
+      );
       setLoading(false);
       return;
     }
+
+    localStorage.setItem(LAST_SUBMIT_KEY, String(Date.now()));
 
     // Send email notification to Pop & Drop team
       await emailjs.send(
@@ -72,6 +94,7 @@ function RequestMachineForm() {
       
       setSubmittedName(name);
       setSubmitted(true);
+      setLoading(false);
       setCompanyName('');
       setName('');
       setEmail('');
