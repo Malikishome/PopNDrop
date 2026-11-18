@@ -6,6 +6,8 @@
 // Deploy with: supabase functions deploy submit-lead
 // SUPABASE_URL / SUPABASE_ANON_KEY / SUPABASE_SERVICE_ROLE_KEY are
 // provided automatically by the Supabase platform at runtime.
+// EMAILJS_SERVICE_ID / EMAILJS_TEMPLATE_ID / EMAILJS_PUBLIC_KEY /
+// EMAILJS_PRIVATE_KEY are set with `supabase secrets set`.
 
 import { createClient } from "npm:@supabase/supabase-js@2";
 
@@ -34,6 +36,39 @@ function getClientIp(req: Request): string {
 
 function isValidEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+// Emails the team about a saved lead via the EmailJS REST API. Runs after
+// the insert, so a failure here is logged and never fails the request.
+async function sendLeadNotification(lead: Record<string, string>) {
+  const serviceId = Deno.env.get("EMAILJS_SERVICE_ID");
+  const templateId = Deno.env.get("EMAILJS_TEMPLATE_ID");
+  const publicKey = Deno.env.get("EMAILJS_PUBLIC_KEY");
+  const privateKey = Deno.env.get("EMAILJS_PRIVATE_KEY");
+  if (!serviceId || !templateId || !publicKey || !privateKey) {
+    console.error("EmailJS secrets are not set; skipping lead notification");
+    return;
+  }
+
+  try {
+    const res = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        service_id: serviceId,
+        template_id: templateId,
+        user_id: publicKey,
+        accessToken: privateKey,
+        template_params: { ...lead, time: new Date().toUTCString() },
+      }),
+      signal: AbortSignal.timeout(5000),
+    });
+    if (!res.ok) {
+      console.error("EmailJS send failed:", res.status, await res.text());
+    }
+  } catch (error) {
+    console.error("EmailJS send error:", error);
+  }
 }
 
 Deno.serve(async (req) => {
@@ -125,6 +160,15 @@ Deno.serve(async (req) => {
     console.error("Error inserting lead:", insertError);
     return jsonResponse({ error: "server_error" }, 500);
   }
+
+  await sendLeadNotification({
+    company_name: companyName,
+    name,
+    email,
+    phone,
+    reason,
+    message,
+  });
 
   return jsonResponse({ success: true }, 200);
 });

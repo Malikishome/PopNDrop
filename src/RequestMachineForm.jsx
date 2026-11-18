@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import useScrollEffect from "./useScrollEffect";
 import FloatingInput from './FloatingInput';
 import { supabase } from './supabaseClient';
-import emailjs from '@emailjs/browser';
 
 const SUBMIT_COOLDOWN_MS = 60_000;
 const LAST_SUBMIT_KEY = 'popndrop_last_lead_submit';
@@ -75,26 +74,6 @@ function RequestMachineForm() {
     }
 
     localStorage.setItem(LAST_SUBMIT_KEY, String(Date.now()));
-
-    // Send email notification to Pop & Drop team
-      try {
-        await emailjs.send(
-          import.meta.env.VITE_EMAILJS_SERVICE_ID,
-          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-          {
-            company_name: companyName,
-            name: name,
-            email: email,
-            phone: phone,
-            reason: reason,
-            message: message,
-            time: new Date().toLocaleString(),
-          },
-          import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-        );
-      } catch {
-        // The lead is already saved; a failed notification email must not block the user.
-      }
 
       setSubmittedName(name);
       setSubmitted(true);
